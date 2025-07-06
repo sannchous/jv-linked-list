@@ -73,22 +73,9 @@ public class MyLinkedList<T> implements MyLinkedListInterface<T> {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index is not valid " + index);
         }
-
-        if (index == 0) {
-            return head.data;
-        }
-        if (index == size - 1) {
-            return tail.data;
-        }
-
-        int counter = 0;
-        Node<T> current = head;
-        while (current != null) {
-            if (counter == index) {
-                return current.data;
-            }
-            current = current.next;
-            counter++;
+        Node<T> node = node(index);
+        if (node != null) {
+            return node.data;
         }
         return null;
     }
@@ -181,5 +168,13 @@ public class MyLinkedList<T> implements MyLinkedListInterface<T> {
     @Override
     public boolean isEmpty() {
         return size == 0;
+    }
+
+    private Node<T> node(int index) {
+        Node<T> currentlyNode = head;
+        for (int i = 0; i < index; i++) {
+            currentlyNode = currentlyNode.next;
+        }
+        return currentlyNode;
     }
 }
